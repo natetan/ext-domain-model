@@ -10,6 +10,15 @@ import Foundation
 
 print("Hello, World!")
 
+protocol CustomStringConvertible {
+    func toString() -> String
+}
+
+protocol Mathematics {
+    func add(_: Money) -> Money
+    func subtract(_: Money) -> Money
+}
+
 public func testMe() -> String {
     return "I have been tested"
 }
@@ -23,7 +32,8 @@ open class TestMe {
 ////////////////////////////////////
 // Money
 //
-public struct Money {
+public struct Money: CustomStringConvertible, Mathematics {
+
     public var amount : Int
     public var currency : String
     
@@ -56,6 +66,7 @@ public struct Money {
         return Money(amount: money, currency: to)
     }
     
+    
     public func add(_ to: Money) -> Money {
         var toAmount = Money(amount: self.amount, currency: self.currency)
         if (self.currency != to.currency) {
@@ -70,9 +81,20 @@ public struct Money {
             fromAmount = self.convert(from.currency)
         }
         return Money(amount: fromAmount.amount + from.amount, currency: fromAmount.currency)
-    }}
+    }
+    
+    public func toString() -> String {
+        return self.currency + String(self.amount)
+    }
+}
 
-
+// Extension
+extension Double {
+    var USD: Money {return Money(amount: Int(self), currency: "USD")}
+    var EUR: Money {return Money(amount: Int(self), currency: "EUR")}
+    var GBP: Money {return Money(amount: Int(self), currency: "GBP")}
+    var YEN: Money {return Money(amount: Int(self), currency: "YEN")}
+}
 
 ////////////////////////////////////
 // Job
