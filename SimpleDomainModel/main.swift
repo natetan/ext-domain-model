@@ -11,7 +11,9 @@ import Foundation
 print("Hello, World!")
 
 protocol CustomStringConvertible {
-    func toString() -> String
+    var description : String {
+        get
+    }
 }
 
 protocol Mathematics {
@@ -32,10 +34,14 @@ open class TestMe {
 ////////////////////////////////////
 // Money
 //
-public struct Money: CustomStringConvertible, Mathematics {
+public struct Money : CustomStringConvertible, Mathematics {
 
     public var amount : Int
     public var currency : String
+    
+    var description: String {
+        return ("\(currency)\(Double(amount))")
+    }
     
     init(amount: Int, currency: String) {
         self.amount = amount
@@ -80,7 +86,7 @@ public struct Money: CustomStringConvertible, Mathematics {
         if (self.currency != from.currency) {
             fromAmount = self.convert(from.currency)
         }
-        return Money(amount: fromAmount.amount + from.amount, currency: fromAmount.currency)
+        return Money(amount: fromAmount.amount - from.amount, currency: fromAmount.currency)
     }
     
     public func toString() -> String {
@@ -99,9 +105,13 @@ extension Double {
 ////////////////////////////////////
 // Job
 //
-open class Job {
+open class Job : CustomStringConvertible {
     fileprivate var title : String
     fileprivate var type : JobType
+    
+    var description: String {
+        return ("Works at \(title) and gets paid \(type)")
+    }
     
     public enum JobType {
         case Hourly(Double)
@@ -139,10 +149,26 @@ open class Job {
 ////////////////////////////////////
 // Person
 //
-open class Person {
+open class Person : CustomStringConvertible {
     open var firstName : String = ""
     open var lastName : String = ""
     open var age : Int = 0
+    
+    var description : String {
+        var job = ""
+        var spouse = ""
+        if (self._job != nil) {
+            job = "\(self._job)"
+        } else {
+            job = "no job"
+        }
+        if (self._spouse != nil) {
+            spouse = "\(self._spouse)"
+        } else {
+            spouse = "not married"
+        }
+        return ("\(firstName) \(lastName): {job: \(job) spouse: \(spouse)}")
+    }
     
     fileprivate var _job : Job? = nil
     open var job : Job? {
@@ -178,8 +204,16 @@ open class Person {
 ////////////////////////////////////
 // Family
 //
-open class Family {
+open class Family : CustomStringConvertible {
     fileprivate var members : [Person] = []
+    
+    var description: String {
+        var family = "Family: \n"
+        for i in 0...members.count {
+            family += "\(members[i].description)\n"
+        }
+        return family
+    }
     
     public init(spouse1: Person, spouse2: Person) {
         spouse1.spouse = spouse2

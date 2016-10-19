@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleDomainModel/main.swift"
-            timestampString = "498438571.543428"
+            timestampString = "498537363.77516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "toString()"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "subtract(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
