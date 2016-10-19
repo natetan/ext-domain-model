@@ -2,8 +2,8 @@
 //  DomainModelPart2Tests.swift
 //  SimpleDomainModel
 //
-//  Created by iGuest on 10/18/16.
-//  Copyright © 2016 Ted Neward. All rights reserved.
+//  Created by Yulong Tan on 10/18/16.
+//  Copyright © 2016 Yulong Tan. All rights reserved.
 //
 
 import XCTest
@@ -20,6 +20,17 @@ class DomainModelPart2Tests: XCTestCase {
         XCTAssert(moneyTest2.description == "CAN100.0")
         XCTAssert(moneyTest3.description == "EUR1000.0")
         XCTAssert(moneyTest4.description == "GBP1.0")
+        
+        let jobTest = Job(title: "McDonalds", type: Job.JobType.Hourly(4))
+        XCTAssert(jobTest.description == "Works at McDonalds and gets paid 40")
+        
+        let matt = Person(firstName: "Matthew", lastName: "Neward", age: 15)
+        
+        matt.job = Job(title: "Burger-Flipper", type: Job.JobType.Hourly(5.5))
+        XCTAssert(matt.job == nil)
+        
+        matt.spouse = Person(firstName: "Bambi", lastName: "Jones", age: 42)
+        XCTAssert(matt.description == "Matthew Neward: {job: no job | spouse: not married}")
     }
     
     func testMath() {

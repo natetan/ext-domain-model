@@ -2,7 +2,7 @@
 //  main.swift
 //  SimpleDomainModel
 //
-//  Created by Ted Neward on 4/6/16.
+//  Created by Yulong Tan on 4/6/16.
 //  Copyright © 2016 Ted Neward. All rights reserved.
 //
 
@@ -88,10 +88,6 @@ public struct Money : CustomStringConvertible, Mathematics {
         }
         return Money(amount: fromAmount.amount - from.amount, currency: fromAmount.currency)
     }
-    
-    public func toString() -> String {
-        return self.currency + String(self.amount)
-    }
 }
 
 // Extension
@@ -110,7 +106,7 @@ open class Job : CustomStringConvertible {
     fileprivate var type : JobType
     
     var description: String {
-        return ("Works at \(title) and gets paid \(type)")
+        return ("Works at \(title) and gets paid \(calculateIncome(10))")
     }
     
     public enum JobType {
@@ -167,7 +163,7 @@ open class Person : CustomStringConvertible {
         } else {
             spouse = "not married"
         }
-        return ("\(firstName) \(lastName): {job: \(job) spouse: \(spouse)}")
+        return ("\(firstName) \(lastName): {job: \(job) | spouse: \(spouse)}")
     }
     
     fileprivate var _job : Job? = nil
